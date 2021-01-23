@@ -49,6 +49,13 @@ class EmployeeContainer extends Component {
         this.setState({ result: filteredResults });
     };
 
+    handleNameSort = event => {
+        event.preventDefault();
+        const filteredResults = this.state.result.sort((a, b) => (a.name.first > b.name.first)? 1 : -1)
+        console.log(this.state.search);
+        this.setState({result: filteredResults});
+      };
+
     render() {
         return (
             <Wrapper>
@@ -60,6 +67,7 @@ class EmployeeContainer extends Component {
                                 value={this.state.search}
                                 handleInputChange={this.handleInputChange}
                                 handleFormSubmit={this.handleFormSubmit}
+                                handleNameSort={this.handleNameSort}
                             />
                         </Col>
                     </div>
@@ -69,7 +77,7 @@ class EmployeeContainer extends Component {
                             <thead>
                                 <tr>
                                     <th>Photo</th>
-                                    <th>First Name</th>
+                                    <button onClick={this.handleNameSort}>First Name</button>
                                     <th>Last Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
@@ -78,7 +86,7 @@ class EmployeeContainer extends Component {
                             <tbody>
                                 {[...this.state.result].map((item) => (
                                     <Card
-                                        picture={item.picture.large}
+                                        picture={item.picture.thumbnail}
                                         firstName={item.name.first}
                                         lastName={item.name.last}
                                         email={item.email}
